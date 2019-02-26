@@ -1,0 +1,18 @@
+<div class="app-chart-data__tabled"> 
+    <table *ngIf="inData.length" class="app-chart-data__table data-table">
+        <thead class="data-table__header">
+            <tr> 
+                <th class="data-table__header-cell data-table__header-cell--date"> Date </th>
+                <th class="data-table__header-cell data-table__header-cell--rate"> Ex.Rate </th>
+                <th class="data-table__header-cell data-table__header-cell--copy" (click)="avtCopyTable()"> &nbsp; </th>
+            </tr>
+        </thead>
+        <tbody class="data-table__body">
+            <tr *ngFor="let aRate of inData">
+                <td class="data-table__body-cell data-table__body-cell--date"> {{ avtStringifyDate( aRate.crDate ) }} </td>
+                <td class="data-table__body-cell data-table__body-cell--rate"> {{ aRate.crRate | number:'1.5-5' }} </td>
+                <td class="data-table__body-cell data-table__body-cell--copy" (click)="avtCopyRow(aRate)"> &nbsp; </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

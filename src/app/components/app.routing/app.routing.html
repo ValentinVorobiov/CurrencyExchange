@@ -1,0 +1,18 @@
+<ul class="app-menu">
+    <li class="app-menu__item">
+        <a routerLink='' routerLinkActive='active'> Currencies </a>
+    </li>
+    <li class="app-menu__item">
+        <a routerLink='calc' routerLinkActive='active'> Calculator </a>
+    </li>
+    <li *ngIf="arHasFavorites()" class="app-menu__item">
+        <a routerLink='favorites' routerLinkActive='active'> Favorites </a> <span class="fav_count"> {{arGetFavoritesCount()}}</span>
+    </li>
+    <li class="app-menu__item">
+        <a routerLink='about' routerLinkActive='active'> About </a>
+    </li>
+</ul>
+
+<div class="main-app">
+    <router-outlet></router-outlet>
+</div>

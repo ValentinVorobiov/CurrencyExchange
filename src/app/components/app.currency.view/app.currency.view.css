@@ -1,0 +1,53 @@
+.app-charted-view__wrapper{
+    display: flex;
+    flex-flow: row wrap;
+    /* flex-grow: 2; */
+    width: 99.999%; height: 99.999%;
+    align-items: center; justify-content: center;
+    box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;
+    padding-top: 1em;
+}
+
+.app-charted-view__no-item, .app-charted-view__has-item{
+    display: flex; flex-flow: row wrap;
+    align-items: center; justify-content: center;
+    flex-grow: 2; max-width: 100%;
+}
+
+.app-charted-view .favorite-controls__set-favorite{
+    box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;
+    border-radius: 0.6rem;
+    padding: 0.4rem 0.7rem;
+    background-color: #3ed165;
+    border: 1px solid #7fa489;
+}
+
+.app-charted-view__no-item{
+    font-size: 1.75em; font-weight: 400;
+}
+
+.app-charted-view__dates-wrapper, .app-charted-view__header, .app-charted-view__chart-wrapper{
+    box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;
+    padding-top: 0.5rem; padding-bottom: 0.5rem;
+    display: flex; flex-flow: row wrap;
+    width: 99.999%; max-width: 100%; min-width: 300px;
+    align-items: center; justify-content: space-evenly;
+}
+
+.dates-wrapper__label{ 
+    width: 100%; max-width: 100%;
+    text-align: center; 
+    margin-top: 0.5rem; margin-bottom: 0.5rem; 
+}
+
+.app-charted-view__header{
+    justify-content: space-between;
+}
+
+.app-charted-view__header > div{
+    display: inline-flex; flex-flow: row wrap; align-items: center; justify-content: center;
+}
+
+app-chart{
+    width:80%;
+}

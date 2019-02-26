@@ -1,0 +1,18 @@
+<div class="app__about-info about-info">
+    <div *ngIf="aacAuthor" class="about-info__field about-info__author info-author info-field">
+        <span class="info-field__title">Application developed by: </span>
+        <span class="info-field__data"> {{aacAuthor}} </span>
+    </div>
+    <div *ngIf="aacGitUrl" class="about-info__field about-info__repo info-repo info-field">
+        <span class="info-field__title"> GitHub Repository URL: </span>
+        <a class="info-field__data" [href]="aacGitUrl"> {{aacGitUrl}} </a>
+    </div>
+    <div *ngIf="aacGitPagesUrl" class="about-info__field about-info__github-page github-page info-field">
+        <span class="info-field__title"> GitHub Pages URL: </span>
+        <a class="info-field__data" [href]="aacGitPagesUrl"> {{aacGitPagesUrl}} </a>
+    </div>
+    <div *ngIf="aacDesign" class="about-info__field about-info__sketch-file github-page info-field">
+        <span class="info-field__title"> Design: </span>
+        <a class="info-field__data" href="./Currency.pdf"> {{aacDesign}} </a>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+.app-homepage{
+    width: 99.999%; max-width: 100%;
+    display: flex; flex-flow: row wrap; 
+    align-items: stretch; justify-content: stretch;
+}

@@ -1,0 +1,12 @@
+<div class="app-datepicker app-datepicker__wrapper"> 
+    <div class="app-datepicker__date-wrapper"> 
+        <input type="text" class="app-datepicker__date app-datepicker__text-input app-datepicker__date-input" 
+            #dateInput [value]="dpStringifyDate()"/>
+            <fa-icon [icon]="[ DpIcon.prefix, DpIcon.iconName ]" (click)="dpToggleActive()"></fa-icon>
+    </div>
+    <div class="app-datepicker__calendar-wrapper" [class.active]="DpIsActive">
+        <app-calendar (dateClickedEE)="dpCalendarDateClicked( $event )" [initDate]="DpInDate" [initMaxDate]="DpInMinDate" [initMinDate]="DpInMaxDate">
+            <app-preloader></app-preloader>
+        </app-calendar>
+    </div>
+</div>

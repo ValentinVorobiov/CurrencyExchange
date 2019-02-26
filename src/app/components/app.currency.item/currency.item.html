@@ -1,0 +1,15 @@
+<div *ngIf="currencyItem.cIsBusy" class="currency__item currency"> retrieving data... </div>
+<div *ngIf="!currencyItem.cIsBusy" class="currency__item currency" [class.hidden]="currencyItem.filterRejects" [class.itemSelected]="currencyItem.cIsSelected">
+    <div class="currency__field-wrapper currency__icon-wrapper">
+        <fa-icon [icon]="[ currencyItem.cIcon.prefix, currencyItem.cIcon.iconName ]"></fa-icon>
+    </div>
+    <div class="currency__field-wrapper currency__cISOCode-wrapper">
+        {{ currencyItem.cISOCode }}
+    </div>
+    <div class="currency__field-wrapper currency__cTodayRate-wrapper">
+        {{ currencyItem.cTodayRate | number:'1.5-5' }}
+    </div>
+    <div class="currency__field-wrapper currency__cDailyDiff-wrapper" [class.diffNegative]="currencyItem.cDiffNegative">
+        {{ currencyItem.cDailyDiff | number:'1.5-5' }}
+    </div>
+</div>

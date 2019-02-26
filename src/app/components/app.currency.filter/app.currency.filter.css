@@ -1,0 +1,61 @@
+.app-currency-filter,
+.app-currency-filter__wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem 1.3rem;
+    width: 99.999%;
+    max-width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    min-width: 300px;
+}
+
+.app-currency-filter>*,
+.app-currency-filter__wrapper>* {
+    outline-color: transparent !important;
+}
+
+.app-currency-filter>*:first-child,
+.app-currency-filter__wrapper>*:first-child {
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+}
+
+.app-currency-filter>*:last-child,
+.app-currency-filter__wrapper>*:last-child {
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
+
+.currency-filter__input,
+.app-currency-filter__input {
+    display: inline-flex;
+    flex-flow: row wrap;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    text-indent: 1.5rem;
+    max-width: 70%;
+    min-width: 200px;
+    background-color: #011447;
+    color: #fff;
+    border: 2px solid rgba( 113, 113, 113, 0.57);
+}
+
+.currency-filter__reset-button,
+.app-currency-filter__reset-button {
+    display: inline-flex;
+    flex-flow: row wrap;
+    max-width: 30%;
+    min-width: 70px;
+    text-align: center;
+    justify-content: center;
+    background-color: #472d00;
+    color: #fff;
+    border: 2px solid rgba( 113, 113, 113, 0.57);
+}

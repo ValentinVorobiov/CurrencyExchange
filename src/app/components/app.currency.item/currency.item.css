@@ -1,0 +1,90 @@
+.currency__item:not(.hidden) {
+    width: 99.999%;
+    max-width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    min-width: 290px;
+    min-height: 2rem;
+    align-items: stretch;
+    justify-content: space-between;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    font-size: 0.8rem;
+    border-radius: 0.3rem;
+    border: 2px solid #484848;
+    margin-bottom: 0.5rem;
+    padding: 3px 3px;
+    transition: 0.45s all ease-in-out;
+}
+
+.currency__item.hidden {
+    width: 0px;
+    display: none;
+}
+
+.currency__item:hover {
+    /* font-size: 0.9rem; */
+    border: 2px solid rgba( 230, 230, 230, 0.57);
+}
+
+.currency__field-wrapper {
+    display: inline-flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 0.5rem;
+}
+
+.currency__icon-wrapper {
+    min-width: 30px;
+    align-items: center;
+    justify-content: center;
+    background-color: #e5e5e5;
+    color: #292929;
+}
+
+.currency__icon-wrapper fa-icon {
+    /* width: 80%; */
+}
+
+.currency__cISOCode-wrapper,
+.currency__cTodayRate-wrapper {
+    /* background-color: #292929; */
+    background-color: transparent;
+    color: #0972a6;
+    font-weight: 600;
+}
+
+.currency__cDailyDiff-wrapper {
+    justify-content: flex-end;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    padding: 0.3rem 0.3rem;
+}
+
+.currency__cDailyDiff-wrapper:not(.diffNegative) {
+    background-color: #04b719;
+    color: #fff;
+    border-radius: 0.35rem;
+    border: 2px solid rgba( 4, 193, 25, 0.57);
+}
+
+.currency__cDailyDiff-wrapper.diffNegative {
+    background-color: #f11e1e;
+    color: #fff;
+    border-radius: 0.35rem;
+    border: 2px solid rgba( 241, 30, 30, 0.57);
+}
+
+.currency__item.itemSelected:not(.hidden){
+    background-color: #0066ff;
+}
+
+.currency__item.itemSelected:not(.hidden) .currency__cISOCode-wrapper,
+.currency__item.itemSelected:not(.hidden) .currency__cTodayRate-wrapper{
+    color: #fff;
+}

@@ -1,0 +1,12 @@
+<app-currency-filter *ngIf="(aclCurrencyList)" (setFilter)="aclSetFilter( $event )" (clearFilter)="aclClearFilter()">
+    <app-preloader></app-preloader>
+</app-currency-filter>
+<div *ngIf="!( alcIsBusy() || alcIsEmpty() )" class="currency-list__wrapper app-currency-list">
+    <div *ngFor="let iCurrencyItem of ( aclCurrencyList )" class="currency-list__item currency-list__currency"(click)="alcTransfer( iCurrencyItem )">
+        <currency-item class="self-currency-item"  [class.hidden]="iCurrencyItem.filterRejects" [currencyItem]="iCurrencyItem">
+        </currency-item>
+    </div>
+</div>
+<div *ngIf="alcIsBusy() || alcIsEmpty()" class="currency-list__wrapper app-currency-list--not-ready"> 
+    <app-preloader></app-preloader>
+</div>

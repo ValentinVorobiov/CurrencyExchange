@@ -1,0 +1,40 @@
+<div class="app-calculator__wrapper"> 
+    <div *ngIf="acHasItems()" class="app-calculator__data-wrapper data-wrapper"> 
+
+        <div class="app-calculator__source-currency source-currency"> 
+            <div class="source-currency__union"> 
+                <div class="source-currency__label"> Select source currency </div>
+                <select class="source-currency__selector" (change)="acSetSourceCurrency($event)">
+                    <option *ngFor="let aCurrency of acCurrencyList" [value]="aCurrency.cISOCode">
+                        {{aCurrency.cName}} 
+                    </option>
+                </select>
+            </div>
+
+            <div class="source-currency__union"> 
+                <div class="source-currency__label"> How much is the CA$H ? </div>
+                <input class="source-currency__input" [readonly]="!acIsSourceCurrencySelected()" placeholder=" Input amount to convert" (keyup)="acSourceAmountInput($event)">
+            </div>
+
+        </div>
+
+        <div class="app-calculator__destination-currency destination-currency">
+
+            <div class="destination-currency__union">
+                <div class="destination-currency__label"> Select destination currency </div>
+                <select class="destination-currency__selector" (change)="acSetDestCurrency($event)">
+                    <option *ngFor="let bCurrency of acCurrencyList" [value]="bCurrency.cISOCode">
+                        {{bCurrency.cName}} 
+                    </option>
+                </select>
+            </div>
+
+            <div class="destination-currency__union">
+                <div class="destination-currency__label"> Destination currency amount </div>
+                <input class="destination-currency__input" [readonly]="true" [value]="acRecalcAmount()" placeholder="Select Dest currency prior...">
+            </div>
+
+        </div>
+
+    </div>
+</div>

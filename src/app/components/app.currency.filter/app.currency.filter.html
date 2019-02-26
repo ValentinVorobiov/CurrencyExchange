@@ -1,0 +1,4 @@
+<div class="currency-filter__wrapper app-currency-filter__wrapper">
+    <input type="text" class="currency-filter__input app-currency-filter__input" #filterInput (keyup)="acfInputChanged( $event )" [(value)]="inputString" placeholder="Search for...">
+    <button class="btn-reset currency-filter__reset-button app-currency-filter__reset-button" (click)="acfResetClick( ) "> Reset </button>
+</div>

@@ -1,0 +1,44 @@
+<div class="app-charted-view app-charted-view__wrapper">
+
+    <div *ngIf="!isEmpty()" class="!isEmpty()" class="app-charted-view__has-item"> 
+
+            <div class="app-charted-view__header">
+
+                <div class="app-charted-view__currency-info currency-info"> 
+                    <span class="currency_info__iso-code"> {{ aCharted.ccCurrency.cISOCode }} </span>
+                    <span class="currency_info__currency-name"> ( {{ aCharted.ccCurrency.cName }} ) </span>
+                </div>
+                <div class="app-charted-view__controls-favorite favorite-controls">  
+                        <button *ngIf="!acvIsFavorite()"  class="favorite-controls__set-favorite" (click)="acvSetFavorite()"> To Favorites </button>
+                        <button *ngIf="acvIsFavorite()"  class="favorite-controls__unset-favorite" (click)="acvUnsetFavorite()"> Remove from Favorites </button>
+                </div>
+
+            </div>
+
+                <div class="app-charted-view__dates-wrapper dates-wrapper"> 
+                    <div class="app-charted-view__start-date-wrapper start-date-wrapper"> 
+                        <div class="debug-info hidden">{{ aCharted.ccStartDate }} </div>
+                        <div class="dates-wrapper__label"> Period start date: </div>
+                        <app-datepicker (emitSelectedDate)="acvSetStartDate($event)" [(DpInDate)]="aCharted.ccStartDate" [DpInMinDate]="aCharted.ccMinDate" [DpInMaxDate]="aCharted.ccMinDate"> </app-datepicker>
+                    </div>
+                    <div class="app-charted-view__end-date-wrapper end-date-wrapper"> 
+                        <div class="debug-info hidden">{{ aCharted.ccEndDate }} </div>
+                        <div class="dates-wrapper__label"> Period end date:  </div>
+                        <app-datepicker (emitSelectedDate)="acvSetEndDate($event)" [(DpInDate)]="aCharted.ccEndDate" [DpInMinDate]="aCharted.ccMinDate" [DpInMaxDate]="aCharted.ccMinDate"> </app-datepicker>
+                    </div>
+                </div>
+
+                <div *ngIf="acvHasChartData() && acvViewIsChart()" class="app-charted-view__chart-wrapper chart-wrapper"> 
+                    <app-view-chart [inData]="acvPrepareChartData()" > </app-view-chart>
+                </div>
+
+                <div *ngIf="acvHasChartData() && acvViewIsTable()" class="app-charted-view__chart-wrapper chart-wrapper"> 
+                    <app-view-table [inData]="acvPrepareChartData()" > </app-view-table>
+                </div>
+
+    </div>
+
+
+
+    <div *ngIf="isEmpty()" class="app-charted-view__no-item"> Please select a currency from list </div>
+</div>

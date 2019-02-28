@@ -19,13 +19,14 @@ import { CurrencyRate } from '../../classes/currency.rate.class';
 // Previously AppChartedView class 
 export class AppCurrencyView implements OnInit{
     @Input() aCharted? : ChartedCurrency;
-    public acvDisplayMode : string;
+    public acvDisplayMode : string; // can be either 'table' or 'chart'
 
     constructor( private _acvChartedService : AppChartedListService ){ 
     }
     
     ngOnInit(){
-        this.acvSetDisplayMode( 'table' );
+        console.log( 'AppCurrencyView component, \ n @Input() aCharted: ', this.aCharted );
+        this.acvSetDisplayMode( 'chart' );
     }
 
     public acvSetDisplayMode( aDisplayMode : string ){
@@ -34,6 +35,7 @@ export class AppCurrencyView implements OnInit{
         } else {
             this.acvDisplayMode = 'table';
         }
+        console.log( 'acvSetDisplayMode(), display set to : ', aDisplayMode );
     }
 
     public acvViewIsTable() : boolean {

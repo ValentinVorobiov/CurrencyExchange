@@ -42,10 +42,12 @@
 
 .app-charted-view__header{
     justify-content: space-between;
+    margin-bottom: 1rem;
 }
 
 .app-charted-view__header > div{
     display: inline-flex; flex-flow: row wrap; align-items: center; justify-content: center;
+    margin-bottom: 0.5rem;; margin-top: 0.5rem;
 }
 
 app-chart{

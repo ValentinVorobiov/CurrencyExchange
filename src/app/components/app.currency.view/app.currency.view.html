@@ -29,11 +29,11 @@
                 </div>
 
                 <div *ngIf="acvHasChartData() && acvViewIsChart()" class="app-charted-view__chart-wrapper chart-wrapper"> 
-                    <app-view-chart [inData]="acvPrepareChartData()" > </app-view-chart>
+                    <app-view-chart [inCurrency]="aCharted" > </app-view-chart>
                 </div>
 
                 <div *ngIf="acvHasChartData() && acvViewIsTable()" class="app-charted-view__chart-wrapper chart-wrapper"> 
-                    <app-view-table [inData]="acvPrepareChartData()" > </app-view-table>
+                    <app-view-table [inCurrency]="aCharted" > </app-view-table>
                 </div>
 
     </div>

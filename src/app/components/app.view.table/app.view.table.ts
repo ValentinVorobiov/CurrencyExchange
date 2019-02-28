@@ -3,12 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ClipboardService } from 'ngx-clipboard';
 import { Helpers } from '../../classes/helpers.class';
+import { ChartedCurrency } from '../../classes/charted.currency.class';
 import { CurrencyRate } from '../../classes/currency.rate.class';
-
-export interface RateForTable{
-    rftDate: string;
-    rftRate : number;
-}
 
 @Component({
     selector: '<app-view-table>',
@@ -18,7 +14,7 @@ export interface RateForTable{
 
 export class AppViewTable implements OnInit{
     avtDisplayedColumns: string[] = [ 'Date', 'Ex.Rate' ] ;
-    @Input() inData: Array< CurrencyRate >
+    @Input() inCurrency: ChartedCurrency;
 
     constructor( private _avtClipboardService : ClipboardService ){}
 
@@ -27,24 +23,6 @@ export class AppViewTable implements OnInit{
 
     public avtStringifyDate( aDate : Date ) : string {
         return Helpers.hDateToHumanString( aDate );
-    }
-
-    public avtConvertRate( aRate : CurrencyRate ) : RateForTable {
-        let cnvDate = Helpers.hDateToHumanString( aRate.crDate );
-        let cnvRate = aRate.crRate;
-        const singleRate : RateForTable = { rftDate : cnvDate, rftRate : cnvRate };
-        return singleRate;
-    }
-
-    public avtGetConvertedRates() : RateForTable[] {
-        let actConvertedRates = new Array< RateForTable >();
-        this.inData.forEach( ( rateElement ) => {
-            actConvertedRates = [ 
-                ...actConvertedRates, 
-                this.avtConvertRate( rateElement )
-            ];
-        }  );
-        return actConvertedRates;
     }
 
     public avtRateClipboard( aRate: CurrencyRate ) : string {
@@ -61,7 +39,7 @@ export class AppViewTable implements OnInit{
     public avtCopyTable(){
         let strData = 'Date \t Exchange Rate \n';
 
-        this.inData.forEach( 
+        this.inCurrency.ccRates.forEach( 
             ( anElement ) => {
                 strData = strData + this.avtRateClipboard( anElement ) + '\n';
             } 

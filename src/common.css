@@ -89,7 +89,13 @@ app-currency-list{
 app-charted-view, app-currency-view{
     flex-grow: 0;
     /* width: 99.999%; height: 99.999%;  */
-    max-height: 100%; width: calc( 98% - 330px );
+    max-height: 100%; width: calc( 97% - 330px );
+    margin-left: 1%;
     align-items: stretch; justify-content: stretch;
     min-width: 320px;
+}
+
+app-view-chart{
+    width: 100%; max-width: 100%;
+    justify-content: center;
 }

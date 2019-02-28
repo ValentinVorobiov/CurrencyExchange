@@ -4,8 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { Routes, RouterModule } from '@angular/router';
 import { ClipboardModule } from 'ngx-clipboard';
-
-import {MatTableModule, MatSortModule } from '@angular/material';
+import { Chart } from 'chart.js';
 
 import { AxiosService } from '../services/axios.service';
 import { CurrenciesService } from '../services/app.currencies.service';
@@ -52,8 +51,7 @@ const appRoutes : Routes = [
         DragDropModule,
         FontAwesomeModule,
         ClipboardModule,
-        MatTableModule,
-        MatSortModule,
+        // Chart,
         RouterModule.forRoot( appRoutes ),
 
     ],

@@ -6,12 +6,21 @@
     /* background-color: #9e53bc; */
     box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;
     padding: 1rem 1rem;
+    padding-top: 0px;
+    margin-top: 1rem;
     /* width: 80%; */
     min-width: 300px;
     font-weight: 300;
     max-height: 60vh;
     overflow-y: scroll;
     margin-top: 1rem;
+}
+
+.app-chart-data__tabled thead th{
+    position: sticky; 
+    position: -webkit-sticky;
+    top: 0;
+    background-color: #0066ff;
 }
 
 .app-chart-data__tabled .chart-row{

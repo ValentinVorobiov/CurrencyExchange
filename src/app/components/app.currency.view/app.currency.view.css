@@ -43,7 +43,7 @@
 
 .app-charted-view__header{
     justify-content: space-between;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
 }
 
 .app-charted-view__header > div:not(.app-charted-view__controls-viewmode){

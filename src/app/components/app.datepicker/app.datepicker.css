@@ -1,3 +1,4 @@
+
 .app-datepicker__wrapper{
     display: flex; flex-flow: row wrap;
     align-items: center; justify-content: stretch;
@@ -9,7 +10,7 @@
     display: flex; flex-flow: row wrap; 
     align-items: center; justify-content: space-evenly;
     box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;
-   min-width: 300px; max-width: 320px;
+    min-width: 300px; max-width: 350px;
 }
 
 .app-datepicker__date-wrapper fa-icon{
@@ -22,6 +23,11 @@
 
 .app-datepicker__calendar-wrapper.active{
     display: flex;
+    /* box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box; */
+    padding: 15px 15px;
+    transform: translateY( -50% );
+    background-color: #772020aa;
+    z-index: 10;
 }
 
 app-calendar{

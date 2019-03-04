@@ -8,6 +8,15 @@
                     <span class="currency_info__iso-code"> {{ aCharted.ccCurrency.cISOCode }} </span>
                     <span class="currency_info__currency-name"> ( {{ aCharted.ccCurrency.cName }} ) </span>
                 </div>
+                <div class="app-charted-view__controls-viewmode controls-viewmode"> 
+                    <span class="controls-viewode__label"> View Mode: </span>
+                    <button class="controls-viewmode__button controls-viewmode__button--viewmode-table" [class.active]="acvViewIsTable()" (click)="acvSetDisplayMode('table')" title="Table Mode">
+                        <fa-icon [icon]="[ btnTable.prefix, btnTable.iconName ]"></fa-icon>
+                    </button>
+                    <button class="controls-viewmode__button controls-viewmode__button--viewmode-chart" [class.active]="acvViewIsChart()" (click)="acvSetDisplayMode('chart')" title="Chart Mode">
+                        <fa-icon [icon]="[ btnChart.prefix, btnChart.iconName ]"></fa-icon>
+                    </button>
+                </div>
                 <div class="app-charted-view__controls-favorite favorite-controls">  
                         <button *ngIf="!acvIsFavorite()"  class="favorite-controls__set-favorite" (click)="acvSetFavorite()"> To Favorites </button>
                         <button *ngIf="acvIsFavorite()"  class="favorite-controls__unset-favorite" (click)="acvUnsetFavorite()"> Remove from Favorites </button>

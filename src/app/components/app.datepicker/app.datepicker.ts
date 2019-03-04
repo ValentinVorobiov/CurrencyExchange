@@ -42,6 +42,14 @@ export class Datepicker implements OnInit{
         this.DpIsActive = !( this.DpIsActive )
     }
 
+    public dpWrapperClick( evt : any ){
+        // console.log( 'dpWrapperClick, @evt:', evt );
+        let senderClasses = evt.target.className;
+        if( Helpers.hStrLookupKeys( senderClasses, 'app-datepicker__calendar-wrapper' ) ){
+            this.DpIsActive = false;
+        }
+    }
+
     public dpCalendarDateClicked( aDate: Date ){
         this.DpInDate = new Date( aDate );
         this.emitSelectedDate.emit( aDate );

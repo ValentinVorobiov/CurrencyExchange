@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { AppChartedListService } from '../../services/app.charted.list.service';
-
 import { Datepicker } from '../app.datepicker/app.datepicker';
+import { faTable, faChartBar, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { Helpers } from '../../classes/helpers.class';
 import { ChartedCurrency } from '../../classes/charted.currency.class';
@@ -20,22 +20,23 @@ import { CurrencyRate } from '../../classes/currency.rate.class';
 export class AppCurrencyView implements OnInit{
     @Input() aCharted? : ChartedCurrency;
     public acvDisplayMode : string; // can be either 'table' or 'chart'
+    public btnTable : IconDefinition = faTable;
+    public btnChart : IconDefinition = faChartBar;
 
     constructor( private _acvChartedService : AppChartedListService ){ 
     }
     
     ngOnInit(){
-        console.log( 'AppCurrencyView component, \ n @Input() aCharted: ', this.aCharted );
-        this.acvSetDisplayMode( 'chart' );
+        // this.acvSetDisplayMode( 'chart' );
+        this.acvSetDisplayMode();
     }
 
-    public acvSetDisplayMode( aDisplayMode : string ){
+    public acvSetDisplayMode( aDisplayMode? : string ){
         if( aDisplayMode && aDisplayMode.length ){
             this.acvDisplayMode = aDisplayMode
         } else {
             this.acvDisplayMode = 'table';
         }
-        console.log( 'acvSetDisplayMode(), display set to : ', aDisplayMode );
     }
 
     public acvViewIsTable() : boolean {

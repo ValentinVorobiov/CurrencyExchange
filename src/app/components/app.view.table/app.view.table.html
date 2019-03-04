@@ -4,14 +4,18 @@
             <tr> 
                 <th class="data-table__header-cell data-table__header-cell--date"> Date </th>
                 <th class="data-table__header-cell data-table__header-cell--rate"> Ex.Rate </th>
-                <th class="data-table__header-cell data-table__header-cell--copy" (click)="avtCopyTable()"> &nbsp; </th>
+                <th class="data-table__header-cell data-table__header-cell--copy" (click)="avtCopyTable()">
+                    <img src='../../../assets/glyph-copy.png' class="data-table__glyph--copy" alt="Copy All to Clipboard" title="Copy All to Clipboard" />
+                </th>
             </tr>
         </thead>
         <tbody class="data-table__body">
             <tr *ngFor="let aRate of inCurrency.ccRates">
                 <td class="data-table__body-cell data-table__body-cell--date"> {{ avtStringifyDate( aRate.crDate ) }} </td>
                 <td class="data-table__body-cell data-table__body-cell--rate"> {{ aRate.crRate | number:'1.5-5' }} </td>
-                <td class="data-table__body-cell data-table__body-cell--copy" (click)="avtCopyRow(aRate)"> &nbsp; </td>
+                <td class="data-table__body-cell data-table__body-cell--copy" (click)="avtCopyRow(aRate)">  
+                    <img src='../../../assets/glyph-copy.png' class="data-table__glyph--copy" alt="Copy to Clipboard" title="Copy to Clipboard" />
+                </td>
             </tr>
         </tbody>
     </table>

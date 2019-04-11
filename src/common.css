@@ -63,7 +63,7 @@ body {
     display: none !important;
 }
 
-app-homepage, app-routing, router-outlet, app-calculator{
+app-homepage, app-routing, router-outlet, app-calculator, app-favorites-list{
     display: flex; flex-flow: row wrap; 
     width: 99.999%; max-width: 100%;
     align-items: stretch; justify-content: flex-start;

@@ -168,7 +168,8 @@ export class LogicCalendar{
                 prevDays - i
             );
 
-            beforeGrid.push( { aDate: prevIDate, aValid: false } );
+            // beforeGrid.push( { aDate: prevIDate, aValid: false } );
+            beforeGrid = [ ...beforeGrid, { aDate: prevIDate, aValid: false } ];
         }
         beforeGrid = beforeGrid.reverse();
 
@@ -179,9 +180,13 @@ export class LogicCalendar{
                 nextMonthD.getMonth(),
                 ( i - endOffset + 1 )
             );
-            afterGrid.push( { aDate: nextIDate, aValid: false } );
+            // afterGrid.push( { aDate: nextIDate, aValid: false } );
+            afterGrid = [ ...afterGrid, { aDate: nextIDate, aValid: false } ];
         }
 
+        this.datesGRID = [];
+
+        /*
         for( let j:number=0; j< beforeGrid.length ; j++){
             this.datesGRID.push( beforeGrid[ j ] );
         }
@@ -193,6 +198,10 @@ export class LogicCalendar{
         for( let l:number = 0; l < afterGrid.length; l++ ){
             this.datesGRID.push( afterGrid[ l ] );
         }
+        */
+       this.datesGRID = [ ...this.datesGRID, ...beforeGrid ] ;
+       this.datesGRID = [ ...this.datesGRID, ...mainGrid ];
+       this.datesGRID = [ ...this.datesGRID, ...afterGrid ];
 
     } // fillGrid
 

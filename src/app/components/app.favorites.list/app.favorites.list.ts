@@ -39,6 +39,17 @@ export class AppFavoritesList implements OnInit{
         return this._aflChartedService.aclsGetFavorites();
     }
 
+    public aflIsActive( anItem: ChartedCurrency ) : Boolean {
+        let retRes: Boolean = false;
+        let activeItem : ChartedCurrency = this.aflGetSelected();
+        if( activeItem ){
+            retRes = 
+            anItem.ccCurrency.cID  == activeItem.ccCurrency.cID &&
+            anItem.ccCurrency.cISOCode == activeItem.ccCurrency.cISOCode ;
+        }
+        return retRes;
+    }
+
     public aflItemClicked( anItem : ChartedCurrency ){
         this.aflSelected = anItem;
     }

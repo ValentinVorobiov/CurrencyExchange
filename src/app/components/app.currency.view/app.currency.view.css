@@ -22,6 +22,14 @@
     border: 1px solid #7fa489;
 }
 
+.app-charted-view .favorite-controls__unset-favorite{
+    box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -o-box-sizing: border-box;
+    border-radius: 0.6rem;
+    padding: 0.4rem 0.7rem;
+    background-color: #db3636;
+    border: 1px solid #fcb6b6;
+}
+
 .app-charted-view__no-item{
     font-size: 1.75em; font-weight: 400;
 }

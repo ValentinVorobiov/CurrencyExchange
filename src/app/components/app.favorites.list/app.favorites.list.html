@@ -1,6 +1,6 @@
 <div *ngIf="!aflIsEmpty()" class="app-favorites-list__wrapper"> 
-    <div class="app-favorites-list__tabs-heads"> 
-        <div *ngFor="let aFav of aflGetItems()" (click)="aflItemClicked(aFav)"> {{ aFav.ccCurrency.cISOCode }} </div>
+    <div class="app-favorites-list__tabs-heads tabs-heads"> 
+        <div class="tabs-heads__item"  *ngFor="let aFav of aflGetItems()" (click)="aflItemClicked(aFav)" [ngClass]="{ itemActive : aflIsActive( aFav ) }"> {{ aFav.ccCurrency.cISOCode }} </div>
     </div>
     <div *ngIf="aflHasSelected()" class="app-favorites-list__tabs-content"> 
         <app-currency-view [aCharted]="aflGetSelected()">

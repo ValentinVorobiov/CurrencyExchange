@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
+import { InjectFlags, Injectable, Inject } from '@angular/core';
 import { Helpers } from '../classes/helpers.class';
 import { Currency } from '../classes/currency.class';
 import { CurrencyRate, CurrencyShortRate } from '../classes/currency.rate.class';
 import { AxiosService } from './axios.service';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 
 @Injectable({ providedIn: 'root' }) export class CurrenciesService{
     public csCurrencyList: Array<Currency> = new Array();
     private csAxios : AxiosService;
     public csResponse : any;
+    public clsStorage: WebStorageService;
     public tmpRatesArr : Array<CurrencyRate>;
 
-    constructor( anAxios : AxiosService ){
+    constructor( 
+        anAxios : AxiosService, 
+        @Inject(LOCAL_STORAGE) aStorage: WebStorageService ) {
         this.csAxios = anAxios;
     }
 

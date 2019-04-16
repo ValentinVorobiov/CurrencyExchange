@@ -12,7 +12,7 @@ import {    faMoneyBillWaveAlt, faDollarSign, faEuroSign,
 export class ChartedCurrency{
     public ccCurrency: Currency = new Currency();
     public ccRates: Array< CurrencyRate > = new Array< CurrencyRate >();
-    public isFavorite: boolean = false; 
+    // public isFavorite: boolean = false; 
     private _isBusy : boolean = false;
     private _isSlow : boolean = false;
     public ccEndDate: Date = new Date();
@@ -23,6 +23,7 @@ export class ChartedCurrency{
     )
     public ccMinDate : Date;
     public ccMaxDate : Date;
+    private _isFavorite : boolean = false;
     constructor( ){
     }
 
@@ -107,14 +108,21 @@ export class ChartedCurrency{
         this.ccMinDate = new Date( sourceCharted.ccMinDate );
         this.ccMaxDate = new Date( sourceCharted.ccMaxDate );
 
-        this.isFavorite = sourceCharted.isFavorite;
+        this.ccSetFavorite( sourceCharted.ccGetFavorite() );
         this.ccIsSlow = sourceCharted.ccIsSlow;
     }
 
     public ccBorrowChartedFull( sourceCharted : ChartedCurrency ){
         this.ccBorrowChartedBase( sourceCharted );
-        // this.ccRates = sourceCharted.ccRates.slice();
         this.ccRates = [ ...sourceCharted.ccRates];
+    }
+
+    public ccSetFavorite( aFavState?: boolean ){
+        this._isFavorite = aFavState ? true : false ;
+    }
+
+    public ccGetFavorite() : boolean {
+        return this._isFavorite;
     }
 
 }

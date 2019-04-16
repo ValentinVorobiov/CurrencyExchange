@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit,  ChangeDetectionStrategy, ChangeDetectorRef  } from '@angular/core';
 import { Helpers } from '../../classes/helpers.class';
 import { AppPreloader } from '../app.preloader/app.preloader';
 import { Calendar } from '../app.calendar/app.calendar';
@@ -8,7 +8,8 @@ import { asTextData } from '@angular/core/src/view';
 @Component({
     selector: 'app-datepicker',
     templateUrl : 'app.datepicker.html',
-    styleUrls: ['app.datepicker.css']
+    styleUrls: ['app.datepicker.css'],
+    changeDetection : ChangeDetectionStrategy.Default,
 })
 
 export class Datepicker implements OnInit{
@@ -21,7 +22,7 @@ export class Datepicker implements OnInit{
 
     @Output() emitSelectedDate = new EventEmitter<Date>();
 
-    constructor(){}
+    constructor( private _cdr: ChangeDetectorRef ){}
 
     ngOnInit(){
         
@@ -54,6 +55,7 @@ export class Datepicker implements OnInit{
         this.DpInDate = new Date( aDate );
         this.emitSelectedDate.emit( aDate );
         this.DpIsActive = false;
+        this._cdr.detectChanges();
     }
 
     public dpStringifyDate( aDate? : Date ) : string {

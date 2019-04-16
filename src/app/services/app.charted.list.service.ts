@@ -1,19 +1,22 @@
-import { Injectable } from '@angular/core';
+import { InjectFlags, Injectable, Inject } from '@angular/core';
 import { Helpers } from '../classes/helpers.class';
 import { Currency } from '../classes/currency.class';
 import { CurrencyRate } from '../classes/currency.rate.class';
 import { AxiosService } from '../services/axios.service';
 import { ChartedCurrency } from '../classes/charted.currency.class';
 import { IfStmt } from '@angular/compiler';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 
 @Injectable( { providedIn: 'root' } )  export class AppChartedListService{
     public clsChartedCurrencies: Array< ChartedCurrency > = new Array();
     public clsSelectedCharted: ChartedCurrency;
     public clsAxios :  AxiosService;
+    public clsStorage: WebStorageService;
 
-    constructor( anAxios : AxiosService ){
+    constructor( anAxios : AxiosService, @Inject(LOCAL_STORAGE) aStorage: WebStorageService ){
         this.clsAxios = anAxios;
+        this.clsStorage = aStorage;
     }
 
     public async aclsSelectCurrency( aCurrency: Currency ){
@@ -180,7 +183,7 @@ import { IfStmt } from '@angular/compiler';
     public aclsGetFavoritesAvailable( ):number{
         let retVal : number = 0;
         for( let k=0; k < this.clsChartedCurrencies.length; k++ ){
-            if( this.clsChartedCurrencies[ k ].isFavorite ){
+            if( this.clsChartedCurrencies[ k ].ccGetFavorite() ){
                 retVal +=1;
             }
         }
@@ -190,7 +193,7 @@ import { IfStmt } from '@angular/compiler';
     public aclsGetFavorites():Array< ChartedCurrency >{
         let resArr= new Array< ChartedCurrency >();
         for( let k=0; k < this.clsChartedCurrencies.length; k++ ){
-            if( this.clsChartedCurrencies[ k ].isFavorite ){
+            if( this.clsChartedCurrencies[ k ].ccGetFavorite() ){
                 // resArr.push( this.clsChartedCurrencies[ k ] );
                 resArr = [ ...resArr, this.clsChartedCurrencies[ k ] ];
             }
@@ -204,12 +207,12 @@ import { IfStmt } from '@angular/compiler';
 
     public aclsSetFavorite( aCharted: ChartedCurrency ){
         let itemIndex = this.aclsGetIndexByID( aCharted.ccCurrency.cID );
-        this.clsChartedCurrencies[ itemIndex ].isFavorite = true;
+        this.clsChartedCurrencies[ itemIndex ].ccSetFavorite( true );
     }
 
     public aclsUnsetFavorite( aCharted: ChartedCurrency ){
         let itemIndex = this.aclsGetIndexByID( aCharted.ccCurrency.cID );
-        this.clsChartedCurrencies[ itemIndex ].isFavorite = false;
+        this.clsChartedCurrencies[ itemIndex ].ccSetFavorite();
     }
 
     public aclsHasSelected():boolean{
@@ -220,5 +223,28 @@ import { IfStmt } from '@angular/compiler';
     public hasItems():boolean{
         return (this.clsChartedCurrencies.length > 0);
     }
+
+    public aclsClearStorage(){
+        for( let clsKey in this.clsStorage ){
+            this.clsStorage.remove( clsKey );
+        }
+    }
+
+    public aclsSaveData(){
+        this.aclsClearStorage();
+        let dataArray : string[];
+        for( let aCurrency of this.clsChartedCurrencies ){
+            dataArray = [ ...dataArray, JSON.stringify( aCurrency ) ];
+        }
+        this.clsStorage.set( 'CECharteds', dataArray );
+    }
+
+    public aclsLoadData(){
+        let dataArray = this.clsStorage.get( 'CECharteds' );
+        if( dataArray ){
+            // дописать преобразование JSON-элемента к ChartedCurrency
+        }
+    }
+
 
 }

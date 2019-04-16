@@ -1,4 +1,4 @@
-import { NgModule, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgModule, Component, OnInit, Input, Output, EventEmitter,  ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { AppChartedListService } from '../../services/app.charted.list.service';
 
@@ -12,12 +12,18 @@ import { AppPreloader } from '../../components/app.preloader/app.preloader';
     selector: 'app-favorites-list',
     templateUrl : 'app.favorites.list.html',
     styleUrls: ['app.favorites.list.css'],
+    changeDetection : ChangeDetectionStrategy.Default,
 })
 
 export class AppFavoritesList implements OnInit{
 
     public aflSelected : ChartedCurrency;
-    constructor( private _aflChartedService : AppChartedListService ){ }
+    constructor( 
+        private _aflChartedService : AppChartedListService,
+        private _cdr : ChangeDetectorRef
+    ){
+
+    }
 
     ngOnInit(){
 
@@ -52,6 +58,7 @@ export class AppFavoritesList implements OnInit{
 
     public aflItemClicked( anItem : ChartedCurrency ){
         this.aflSelected = anItem;
+        this._cdr.detectChanges();
     }
 
     public aflGetSelected():ChartedCurrency{

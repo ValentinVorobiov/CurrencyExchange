@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { Routes, RouterModule } from '@angular/router';
+import { StorageServiceModule } from 'angular-webstorage-service';
 import { ClipboardModule } from 'ngx-clipboard';
 import { Chart } from 'chart.js';
 
@@ -51,6 +52,7 @@ const appRoutes : Routes = [
         DragDropModule,
         FontAwesomeModule,
         ClipboardModule,
+        StorageServiceModule,
         // Chart,
         RouterModule.forRoot( appRoutes ),
 

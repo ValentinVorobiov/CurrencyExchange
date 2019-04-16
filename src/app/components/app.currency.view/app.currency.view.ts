@@ -1,4 +1,4 @@
-import { NgModule, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgModule, Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -14,6 +14,7 @@ import { CurrencyRate } from '../../classes/currency.rate.class';
     selector: '<app-currency-view>',
     templateUrl : 'app.currency.view.html',
     styleUrls: ['app.currency.view.css'],
+    changeDetection : ChangeDetectionStrategy.Default,
 })
 
 // Previously AppChartedView class 
@@ -23,7 +24,9 @@ export class AppCurrencyView implements OnInit{
     public btnTable : IconDefinition = faTable;
     public btnChart : IconDefinition = faChartBar;
 
-    constructor( private _acvChartedService : AppChartedListService ){ 
+    constructor( 
+        private _acvChartedService : AppChartedListService,
+        private _cdr: ChangeDetectorRef ){ 
     }
     
     ngOnInit(){
@@ -37,6 +40,7 @@ export class AppCurrencyView implements OnInit{
         } else {
             this.acvDisplayMode = 'table';
         }
+        this._cdr.detectChanges();
     }
 
     public acvViewIsTable() : boolean {
@@ -62,7 +66,7 @@ export class AppCurrencyView implements OnInit{
     }
 
     public acvIsFavorite(){
-        return this.aCharted.isFavorite;
+        return this.aCharted.ccGetFavorite();
     }
 
     public acvStringifyDate( aDate : Date ) : string {
@@ -72,11 +76,13 @@ export class AppCurrencyView implements OnInit{
     public acvSetStartDate( aNewDate: Date | string ){
         this.aCharted.ccStartDate = new Date( aNewDate );
         this._acvChartedService.aclsUpdateSelected( this.aCharted );
+        this._cdr.detectChanges();
     }
 
     public acvSetEndDate( aNewDate: Date | string ){
         this.aCharted.ccEndDate = new Date( aNewDate );
         this._acvChartedService.aclsUpdateSelected( this.aCharted );
+        this._cdr.detectChanges();
     }
 
     public acvHasChartData(  ): boolean{

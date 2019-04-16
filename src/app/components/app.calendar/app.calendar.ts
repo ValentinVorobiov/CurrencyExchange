@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit,  ChangeDetectionStrategy, ChangeDetectorRef  } from '@angular/core';
 import { AppPreloader } from '../app.preloader/app.preloader';
 import { LogicCalendar } from '../../classes/logic.calendar';
 import { Helpers } from '../../classes/helpers.class';
@@ -6,7 +6,8 @@ import { Helpers } from '../../classes/helpers.class';
 @Component({
     selector: 'app-calendar',
     templateUrl : 'app.calendar.html',
-    styleUrls: ['app.calendar.css']
+    styleUrls: ['app.calendar.css'],
+    changeDetection : ChangeDetectionStrategy.Default,
 })
 export class Calendar implements OnInit{
     @Input() initDate?: Date;
@@ -18,7 +19,7 @@ export class Calendar implements OnInit{
     public dateSelected: Date;
     @Output() dateClickedEE : EventEmitter< Date > = new EventEmitter;
 
-    constructor(){
+    constructor( private _cdr : ChangeDetectorRef ){
         
     }
 
@@ -101,6 +102,7 @@ export class Calendar implements OnInit{
             this.dateClickedEE.emit( cellData.aDate );
             this.initDate = cellData.aDate;
         }
+        this._cdr.detectChanges();
     }
 
 

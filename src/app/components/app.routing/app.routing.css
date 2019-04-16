@@ -50,3 +50,8 @@
     content: '|'; font-weight: 800;
     color: #484848;
 }
+
+.app-menu__item .fav_count{
+    display: inline-flex;
+    padding: 0.3rem;
+}

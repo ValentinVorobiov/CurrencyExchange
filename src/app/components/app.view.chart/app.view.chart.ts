@@ -26,7 +26,7 @@ export class AppViewChart implements OnInit{
     constructor( private _ElementRef : ElementRef ){}
 
     ngOnInit(){ 
-        console.log( 'AppViewChart component, \ n @Input() inCurrency: ', this.inCurrency );
+        // console.log( 'AppViewChart component, \ n @Input() inCurrency: ', this.inCurrency );
         this.avcChartData = this.avcGetChartData();
         this.avcChart = this.avcPrepareChart();
     }

@@ -1,8 +1,12 @@
 import { Helpers } from './helpers.class';
 import { Currency } from './currency.class';
 
-export class CurrencyRate{
+export interface CurrencyChartData{
+    ccdDate : string;
+    ccdRate : number;
+}
 
+export class CurrencyRate{
 
     public crISOCode : string;
     public crDate: Date;

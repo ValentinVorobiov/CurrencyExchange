@@ -8,7 +8,7 @@ import { faTable, faChartBar, IconDefinition } from '@fortawesome/free-solid-svg
 
 import { Helpers } from '../../classes/helpers.class';
 import { ChartedCurrency } from '../../classes/charted.currency.class';
-import { CurrencyRate } from '../../classes/currency.rate.class';
+import { CurrencyRate, CurrencyChartData } from '../../classes/currency.rate.class';
 
 @Component({
     selector: '<app-currency-view>',
@@ -21,6 +21,7 @@ import { CurrencyRate } from '../../classes/currency.rate.class';
 export class AppCurrencyView implements OnInit{
     @Input() aCharted? : ChartedCurrency;
     public acvDisplayMode : string; // can be either 'table' or 'chart'
+    public acvChartJSData : Array< CurrencyChartData >;
     public btnTable : IconDefinition = faTable;
     public btnChart : IconDefinition = faChartBar;
 
@@ -34,6 +35,8 @@ export class AppCurrencyView implements OnInit{
         this.acvSetDisplayMode();
     }
 
+    
+
     public acvSetDisplayMode( aDisplayMode? : string ){
         if( aDisplayMode && aDisplayMode.length ){
             this.acvDisplayMode = aDisplayMode
@@ -41,10 +44,18 @@ export class AppCurrencyView implements OnInit{
             this.acvDisplayMode = 'table';
         }
         this._cdr.detectChanges();
+        if( aDisplayMode =='chart' ){
+            // preparing data for chart
+            this.acvChartJSData = this.acvGetChartData();
+        }
     }
 
     public acvViewIsTable() : boolean {
         return ( this.acvDisplayMode === 'table' );
+    }
+
+    public acvGetChartData() : Array< CurrencyChartData >{
+        return ChartedCurrency.ccGetChartData( this.aCharted );
     }
 
     public acvViewIsChart() : boolean {
@@ -77,12 +88,14 @@ export class AppCurrencyView implements OnInit{
         this.aCharted.ccStartDate = new Date( aNewDate );
         this._acvChartedService.aclsUpdateSelected( this.aCharted );
         this._cdr.detectChanges();
+        this.acvChartJSData = this.acvGetChartData();
     }
 
     public acvSetEndDate( aNewDate: Date | string ){
         this.aCharted.ccEndDate = new Date( aNewDate );
         this._acvChartedService.aclsUpdateSelected( this.aCharted );
         this._cdr.detectChanges();
+        this.acvChartJSData = this.acvGetChartData();
     }
 
     public acvHasChartData(  ): boolean{
@@ -92,7 +105,11 @@ export class AppCurrencyView implements OnInit{
         }
         return retRes;
     }
+
+    /*
     public acvPrepareChartData( ): Array<CurrencyRate> | boolean {
         return this.aCharted.ccRates;
     }
+    */
+
 }

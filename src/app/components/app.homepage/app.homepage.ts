@@ -1,4 +1,4 @@
-import { NgModule, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgModule, Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -17,7 +17,6 @@ import{ ChartedCurrency } from '../../classes/charted.currency.class';
 })
 
 export class AppHomepage{
-
     constructor( 
         private _ahCurrencyService: CurrenciesService, 
         private _ahChartedService : AppChartedListService 
@@ -43,5 +42,9 @@ export class AppHomepage{
         return retVal;
     }
 
+    @HostListener( 'window.beforeunload', [ '$event' ] ) ahBeforeUnload( event ){
+        this._ahChartedService.aclsSaveData();
+        return false;
+    }
 
 }

@@ -1,33 +1,25 @@
-import { NgModule, Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { NgModule, Component, OnInit, Input, Output, EventEmitter, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { Chart } from 'chart.js';
 
 import { Helpers } from '../../classes/helpers.class';
-import { ChartedCurrency } from '../../classes/charted.currency.class';
-import { CurrencyRate } from '../../classes/currency.rate.class';
-
-export interface CurrencyChartData{
-    ccdDate : string;
-    ccdRate : number;
-}
+import { ChartedCurrency,  } from '../../classes/charted.currency.class';
+import { CurrencyRate, CurrencyChartData } from '../../classes/currency.rate.class';
 
 @Component({
     selector: '<app-view-chart>',
     templateUrl : 'app.view.chart.html',
     styleUrls: ['app.view.chart.css'],
+    changeDetection : ChangeDetectionStrategy.OnPush,
 })
 
 export class AppViewChart implements OnInit{
     @Input() inCurrency: ChartedCurrency;
-    public avcChartData : Array< CurrencyChartData >;
     public avcChart : Chart;
-
-    constructor( private _ElementRef : ElementRef ){}
+    constructor( private _ElementRef : ElementRef, private _cdr: ChangeDetectorRef ){}
 
     ngOnInit(){ 
-        // console.log( 'AppViewChart component, \ n @Input() inCurrency: ', this.inCurrency );
-        this.avcChartData = this.avcGetChartData();
         this.avcChart = this.avcPrepareChart();
     }
 
@@ -36,31 +28,12 @@ export class AppViewChart implements OnInit{
         return Helpers.hDateToHumanString( aDate );
     }
 
-    public avcCurrencyRateToChartData( aRate: CurrencyRate ) : CurrencyChartData {
-        let tmpDateStr = this.avcStringifyDate( aRate.crDate );
-        let tmpCurrencyRate = aRate.crRate;
-        let tmpChartData : CurrencyChartData = {
-            ccdDate: tmpDateStr,
-            ccdRate: tmpCurrencyRate
-        }
-        return tmpChartData;
-    }
-
-    public avcGetChartData() : CurrencyChartData[] {
-        let tmpChartDataArray = new Array< CurrencyChartData >();
-        this.inCurrency.ccRates.forEach( 
-            ( rateElement ) => {
-                tmpChartDataArray = [ ...tmpChartDataArray, this.avcCurrencyRateToChartData( rateElement ) ];
-            } 
-        );
-        return tmpChartDataArray;
-    }
 
     public avcPrepareChart() : Chart {
         let labelsDate = new Array<string>();
         let valuesRate = new Array<number>();
-
-        this.avcChartData.forEach( 
+        // let aChartData = ChartedCurrency.ccGetChartData( this.inCurrency );
+        ChartedCurrency.ccGetChartData( this.inCurrency ).forEach( 
             ( aCurrencyChartData ) => {
                 labelsDate = [ ...labelsDate, aCurrencyChartData.ccdDate ] ;
                 valuesRate = [ ...valuesRate, aCurrencyChartData.ccdRate ] ;

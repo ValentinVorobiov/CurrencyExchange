@@ -1,5 +1,5 @@
 import { Helpers } from './helpers.class';
-import { CurrencyRate, CurrencyShortRate } from './currency.rate.class';
+import { CurrencyRate, CurrencyShortRate, CurrencyChartData } from './currency.rate.class';
 import{ AxiosService } from '../services/axios.service';
 import { Currency } from '../classes/currency.class';
 
@@ -116,6 +116,53 @@ export class ChartedCurrency{
         this.ccBorrowChartedBase( sourceCharted );
         this.ccRates = [ ...sourceCharted.ccRates];
     }
+
+    public static ccReplaceBorrowChartedBase( sourceCharted : ChartedCurrency ) : ChartedCurrency {
+        let retRes = new ChartedCurrency;
+        retRes.ccCurrency.cID = sourceCharted.ccCurrency.cID;
+        retRes.ccCurrency.cISOCode = sourceCharted.ccCurrency.cISOCode;
+        retRes.ccCurrency.cNumCode = sourceCharted.ccCurrency.cNumCode;
+        retRes.ccCurrency.cIcon = sourceCharted.ccCurrency.cIcon;
+        retRes.ccCurrency.cName = sourceCharted.ccCurrency.cName;
+        retRes.ccCurrency.cScaler = sourceCharted.ccCurrency.cScaler;
+        retRes.ccCurrency.cStrForFilter = sourceCharted.ccCurrency.cStrForFilter;
+
+        retRes.ccCurrency.cMinDate = new Date( sourceCharted.ccCurrency.cMinDate ) ;
+        retRes.ccCurrency.cMaxDate = new Date( sourceCharted.ccCurrency.cMaxDate );
+        retRes.ccCurrency.cStartDate = new Date( sourceCharted.ccCurrency.cStartDate );
+        retRes.ccCurrency.cEndDate = new Date( sourceCharted.ccCurrency.cEndDate );
+        retRes.ccCurrency.cRates2W = sourceCharted.ccCurrency.cRates2W.slice();
+        retRes.ccCurrency.cRatesArray = sourceCharted.ccCurrency.cRatesArray.slice();
+
+        retRes.ccStartDate = new Date( sourceCharted.ccStartDate );
+        retRes.ccEndDate = new Date( sourceCharted.ccEndDate );
+        retRes.ccMinDate = new Date( sourceCharted.ccMinDate );
+        retRes.ccMaxDate = new Date( sourceCharted.ccMaxDate );
+
+        retRes.ccSetFavorite( sourceCharted.ccGetFavorite() );
+        retRes.ccIsSlow = sourceCharted.ccIsSlow;
+        return retRes;
+    }
+
+    public static ccReplaceBorrowChartedFull( sourceCharted : ChartedCurrency ) :ChartedCurrency {
+        let retRes = ChartedCurrency.ccReplaceBorrowChartedBase( sourceCharted ) ;
+        retRes.ccRates = [ ...sourceCharted.ccRates];
+        return retRes;
+    }
+
+    public static ccGetChartData( aCurrency : ChartedCurrency ) : Array< CurrencyChartData > {
+        let resArr = [];
+        for (const aRate of aCurrency.ccRates) {
+            let tmpCCD = { 
+                ccdDate : Helpers.hDateToHumanString( aRate.crDate ),  
+                ccdRate : aRate.crRate
+            }
+            resArr = [ ...resArr, tmpCCD ];
+        }
+        console.log( 'ccGetChartData finalizing, \n ', resArr );
+        return resArr;
+    }
+
 
     public ccSetFavorite( aFavState?: boolean ){
         this._isFavorite = aFavState ? true : false ;

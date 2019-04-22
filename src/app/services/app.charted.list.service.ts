@@ -1,7 +1,7 @@
 import { InjectFlags, Injectable, Inject } from '@angular/core';
 import { Helpers } from '../classes/helpers.class';
 import { Currency } from '../classes/currency.class';
-import { CurrencyRate } from '../classes/currency.rate.class';
+import { CurrencyRate, CurrencyChartData } from '../classes/currency.rate.class';
 import { AxiosService } from '../services/axios.service';
 import { ChartedCurrency } from '../classes/charted.currency.class';
 import { IfStmt } from '@angular/compiler';
@@ -113,7 +113,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
         return retArr;
     } // aclsGetSlowRates()
 
-    public async aclsGetCurrencyRates( aCharted: ChartedCurrency  ) {
+    public async aclsGetCurrencyRates( aCharted: ChartedCurrency ) : Promise< Array< CurrencyRate > > {
         let resArray : Array< CurrencyRate > = new Array< CurrencyRate >();
         let tryoutVal = await this.aclsTryFastRates( aCharted ) ;
         aCharted.ccRates = new Array< CurrencyRate >();
@@ -129,6 +129,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
                 return resolvedData;
             }
         );
+        return resArray;
     } // aclsGetCurrencyRates()
 
     public aclsGetCharteds() : Array< ChartedCurrency > {
@@ -168,16 +169,33 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
         return retIndex;
     }
 
-    public aclsUpdateCharted( anUpdated: ChartedCurrency ) : number {
-        let itemIndex = this.aclsGetIndexByID( anUpdated.ccCurrency.cID );
-        this.aclsGetCurrencyRates( anUpdated );
-        this.clsChartedCurrencies[ itemIndex ].ccBorrowChartedFull( anUpdated );
+    public aclsGetIndexByISOCode( anISOCode: string ) : number {
+        let retIndex: number = -1;
+        let notFound: boolean = true;
+        for( let gibidI = 0; gibidI < this.clsChartedCurrencies.length && notFound; gibidI++ ){
+            if( this.clsChartedCurrencies[ gibidI ].ccCurrency.cISOCode === anISOCode ){
+                retIndex = gibidI; notFound = false;
+            }
+        }
+        return retIndex;
+    }
+
+    public async aclsUpdateCharted( aChartedCurrency: ChartedCurrency ) {
+        let itemIndex = this.aclsGetIndexByID( aChartedCurrency.ccCurrency.cID );
+        let newRatesArr = await this.aclsGetCurrencyRates( aChartedCurrency ).then( ( anArr )=>{
+            return [ ...anArr ];
+        } );
+        console.log( 'aclsUpdateCharted, @newRatesArr: ', newRatesArr );
+        aChartedCurrency.ccRates = newRatesArr;
+        this.clsChartedCurrencies[ itemIndex ] = ChartedCurrency.ccReplaceBorrowChartedFull( aChartedCurrency );
         return itemIndex;
     }
 
     public async aclsUpdateSelected( anUpdated : ChartedCurrency ){
         let selIndex = await this.aclsUpdateCharted( anUpdated );
-        this.clsSelectedCharted.ccBorrowChartedFull( anUpdated );
+        console.log( 'aclsUpdateSelected, @selIndex:  ', selIndex );
+        // this.clsSelectedCharted.ccBorrowChartedFull( anUpdated );
+        this.clsSelectedCharted = ChartedCurrency.ccReplaceBorrowChartedFull( anUpdated );
     }
 
     public aclsGetFavoritesAvailable( ):number{
@@ -232,16 +250,18 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
     public aclsSaveData(){
         this.aclsClearStorage();
-        let dataArray : string[];
+        let dataArray : string[]; let aclsToday = new Date();
         for( let aCurrency of this.clsChartedCurrencies ){
             dataArray = [ ...dataArray, JSON.stringify( aCurrency ) ];
         }
         this.clsStorage.set( 'CECharteds', dataArray );
+        this.clsStorage.set( 'CETimestamp', aclsToday.toDateString() );
     }
 
     public aclsLoadData(){
         let dataArray = this.clsStorage.get( 'CECharteds' );
         if( dataArray ){
+            console.log( 'aclsLoadData got @dataArray, \n', dataArray );
             // дописать преобразование JSON-элемента к ChartedCurrency
         }
     }
